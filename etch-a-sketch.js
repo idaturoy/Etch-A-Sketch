@@ -1,5 +1,4 @@
-var container = document.getElementById
-("grid-container");
+var container = document.getElementById("grid-container");
 const clearButton = document.getElementById("clear");
 const randomColorButton = document.getElementById("randColor");
 const defaultColorButton = document.getElementById("default");
@@ -15,6 +14,7 @@ function createDivs(chosenSize){
         let newDiv = document.createElement("div");
         newDiv.setAttribute("class", "square");
         newDiv.addEventListener("mouseenter", colorChooser);
+        newDiv.addEventListener("touchstart", colorChooser);
         container.style.gridTemplateColumns = `repeat(${chosenSize}, 1fr)`;
         container.style.gridTemplateRows = `repeat(${chosenSize}, 1fr)`;
         container.appendChild(newDiv);
@@ -25,7 +25,7 @@ window.onload = function() {
 };
 
 function clear() {
-    container.querySelectorAll("div").forEach(square => {square.style.backgroundColor = "#c3edf3"
+    container.querySelectorAll("div").forEach(square => {square.style.backgroundColor = "#F1FFFA"
     square.style.opacity = 1.0;
 });
 }
@@ -37,16 +37,18 @@ function newGrid(){
 }
 
 function rainbowPencil(){
-    return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+    return "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0");
 }
 
 function colorChooser(){
     switch(color){
         case 'rainbow':
             this.style.backgroundColor = rainbowPencil();
+            this.style.opacity = 0.5;
+
             break;
         case 'default':
-            this.style.backgroundColor = "#426fc1";
+            this.style.backgroundColor = "#96E6B3";
             break;
     }
     switch (effect){
@@ -69,6 +71,7 @@ sizeInput.addEventListener("keyup", function(event){
 });
 defaultColorButton.addEventListener("click", () =>{
     color = "default";
+    gradualDarkness = 1.0;
     
 })
 gradualDarkButton.addEventListener("click",() => {
@@ -77,8 +80,5 @@ gradualDarkButton.addEventListener("click",() => {
 })
 randomColorButton.addEventListener("click", () =>{
     color = "rainbow";
+    gradualDarkness = 1.0;
 })
-
-  
-
-
