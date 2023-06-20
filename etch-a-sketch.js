@@ -13,8 +13,11 @@ function createDivs(chosenSize){
     for (i = 0; i < chosenSize*chosenSize; i++){
         let newDiv = document.createElement("div");
         newDiv.setAttribute("class", "square");
-        newDiv.addEventListener("mouseenter", colorChooser);
-        newDiv.addEventListener("touchstart", colorChooser);
+        newDiv.addEventListener("pointerenter", colorChooser);
+        // newDiv.addEventListener("pointerenter", (e) =>{
+        //     newDiv.releasePointerCapture(e.pointerId);
+        //     colorChooser;
+        // });
         container.style.gridTemplateColumns = `repeat(${chosenSize}, 1fr)`;
         container.style.gridTemplateRows = `repeat(${chosenSize}, 1fr)`;
         container.appendChild(newDiv);
